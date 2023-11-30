@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Tech Blog</title>
+  <!-- Stylesheets or other meta tags -->
+</head>
+<body>
+  <header>
+        <!-- Your header content here -->
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login">Login</a></li>
+                <!-- Add other navigation links based on requirements -->
+            </ul>
+        </nav>
+    </header>
+  <h1>Welcome, {{ email }}!</h1>
+  
+  <!-- Display user information -->
+  <div>
+    <h2>Your Posts:</h2>
+    <ul>
+      {{#each posts}}
+        <li>
+          <a href="/posts/{{ this.id }}">{{ this.title }}</a>
+          <button class="deleteBtn" data-id="{{ this.id }}">Delete</button>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+  
+  <!-- Form for creating a new post -->
+  <form id="newPostForm">
+    <div>
+      <label for="postTitle">Title:</label>
+      <input type="text" id="postTitle" name="postTitle">
+    </div>
+    <div>
+      <label for="postContent">Content:</label>
+      <textarea id="postContent" name="postContent"></textarea>
+    </div>
+    <button type="submit">Create Post</button>
+  </form>
+  
+  <!-- Script for profile functionality -->
+  <script src="/js/profile.js"></script>
+</body>
+</html>

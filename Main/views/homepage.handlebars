@@ -1,0 +1,50 @@
+<!-- homepage.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog - Homepage</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- Your header content here -->
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login">Login</a></li>
+                <!-- Add other navigation links based on requirements -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="blog-posts">
+            <h1>Latest Blog Posts</h1>
+            {{#if posts.length}}
+                <ul class="post-list">
+                    {{#each posts}}
+                        <li>
+                            <h2><a href="/post/{{this.id}}">{{this.title}}</a></h2>
+                            <p>{{this.content}}</p>
+                            <p>Posted by: {{this.author}} | Date: {{this.createdAt}}</p>
+                        </li>
+                    {{/each}}
+                </ul>
+            {{else}}
+                <p>No blog posts available.</p>
+            {{/if}}
+        </section>
+    </main>
+
+    <footer>
+        <!-- Your footer content here -->
+    </footer>
+</body>
+
+</html>
