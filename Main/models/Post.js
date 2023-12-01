@@ -8,6 +8,7 @@ class Post extends Model {
     });
   }
 }
+
 Post.init(
   {
     // Define your Post model attributes here

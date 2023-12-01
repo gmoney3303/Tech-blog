@@ -5,33 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile - Tech Blog</title>
   <!-- Stylesheets or other meta tags -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header>
         <!-- Your header content here -->
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/login">Login</a></li>
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/login">Login</a>
                 <!-- Add other navigation links based on requirements -->
             </ul>
         </nav>
     </header>
-  <h1>Welcome, {{ email }}!</h1>
+  <h1>Welcome, {{ name }}!</h1>
   
   <!-- Display user information -->
-  <div>
-    <h2>Your Posts:</h2>
-    <ul>
-      {{#each posts}}
-        <li>
-          <a href="/posts/{{ this.id }}">{{ this.title }}</a>
-          <button class="deleteBtn" data-id="{{ this.id }}">Delete</button>
-        </li>
-      {{/each}}
-    </ul>
+{{#if user.posts.length}}
+  <div class="col-md-6 project-list">
+    <h3>Current Posts:</h3>
+
+    {{#each user.posts as |post|}}
+      <div class="row mb-2">
+        <div class="col-md-8">
+          <h4><a href="/posts/{{post.id}}">{{post.title}}</a></h4>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-sm btn-danger deleteBtn" data-id="{{post.id}}">DELETE</button>
+        </div>
+      </div>
+    {{/each}}
   </div>
+{{/if}}
+</div>
   
   <!-- Form for creating a new post -->
   <form id="newPostForm">

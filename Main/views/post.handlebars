@@ -6,19 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Blog Post</title>
   <!-- Include any necessary stylesheets or scripts -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
   <header>
-    <h1>Tech Blog Post</h1>
-    <!-- Navigation or back button to go to the blog post list or another page -->
-  </header>
+        <!-- Your header content here -->
+        <nav>
+            <ul>
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/login">Login</a>
+                <!-- Add other navigation links based on requirements -->
+            </ul>
+        </nav>
+    </header>
 
   <main>
     <div class="blog-post">
       <h2>{{post.title}}</h2>
       <p>Author: {{post.author}}</p>
-      <p>Date Posted: {{format_date post.date}}</p>
+      <p>Date Posted: {{post.date}}</p>
       <img src="{{post.image}}" alt="Post Image">
       <p>{{{post.content}}}</p>
       <!-- Additional content/details of the blog post -->
@@ -26,30 +34,29 @@
 
     <!-- Add comment section if applicable -->
     {{!-- Example comment section --}}
-    <div class="comments-section">
-      <h3>Comments</h3>
-      <ul>
-        {{#each post.comments}}
-        <li>
-          <p>{{commentText}}</p>
-          <p>By: {{commenter}}</p>
-          <p>Date: {{format_date createdAt}}</p>
-        </li>
-        {{/each}}
-      </ul>
-      <!-- Form to add a new comment -->
-      <form class="comment-form">
-        <textarea name="comment" placeholder="Add your comment"></textarea>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <form id="commentForm">
+  <textarea id="commentContent" name="comment" placeholder="Add your comment"></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="comments-section">
+  <h3>Comments</h3>
+  <ul>
+    {{#each post.comments}}
+  <li>
+    <p>{{commentText}}</p>
+    <p>By: {{commenter}}</p>
+    <p>Date: {{createdAt}}</p>
+  </li>
+{{/each}}
+  </ul>
+</div>
   </main>
 
   <footer>
     <!-- Footer content if needed -->
   </footer>
-
-  <script src="./js/project.js"></script>
+<script src="/js/profile.js"></script>
 </body>
 
 </html>

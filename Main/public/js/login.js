@@ -22,6 +22,8 @@ const loginFormHandler = async (event) => {
   }
 };
 
+
+// Ensure the signup form event listener is correctly targeted
 const signupFormHandler = async (event) => {
   event.preventDefault();
 
@@ -30,7 +32,7 @@ const signupFormHandler = async (event) => {
   const password = document.querySelector('#password-signup').value.trim();
 
   if (name && email && password) {
-    const response = await fetch('/api/users', {
+    const response = await fetch('/api/users/signup', { // Assuming signup API endpoint
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
       headers: { 'Content-Type': 'application/json' },
@@ -44,6 +46,7 @@ const signupFormHandler = async (event) => {
   }
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
   document
     .querySelector('.login-form')
@@ -53,3 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
     .querySelector('.signup-form')
     .addEventListener('submit', signupFormHandler);
 });
+
+

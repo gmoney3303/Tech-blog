@@ -1,40 +1,55 @@
 const express = require('express');
 const router = express.Router();
-const { Post, User, Comment } = require('../../models'); // Import necessary models
-
-// Define routes for blog posts
+const { Post, User, Comment } = require('../../models');
 
 // GET route for homepage
 router.get('/', async (req, res) => {
   try {
-    // Fetch all blog posts from the database
-    const posts = await Post.findAll({
-      include: [{ model: User, attributes: ['username'] }, { model: Comment }],
-      order: [['createdAt', 'DESC']],
+    // Assuming req.session.user_id contains the logged-in user's ID
+    const userId = req.session.user_id;
+
+    // Fetch user's details along with their associated posts
+    const userData = await User.findByPk(userId, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post, attributes: ['id', 'title'] }], // Ensure correct association and attributes are included
     });
-    res.render('homepage', { posts, logged_in: req.session.logged_in });
-  } catch (err) {
-    res.status(500).json(err);
+
+    // Extract posts from userData and render the profile page
+    const posts = userData.Posts || [];
+    res.render('profile', {
+      posts,
+      logged_in: true, // Assuming the user is logged in
+      name: userData.name, // Include user's name
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load profile' });
   }
 });
 
-// Define other routes for blog posts here...
-router.get('/posts', async (req, res) => {
+
+
+// POST route to create a new post
+router.post('/create', async (req, res) => {
   try {
-    // Fetch all posts or handle the logic here...
-  } catch (err) {
-    res.status(500).json(err);
+    const { title, content } = req.body;
+    const newPost = await Post.create({ title, content });
+    res.status(200).json({ message: 'Post created successfully', post: newPost });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to create post', error: error.message });
   }
 });
 
-router.get('/post/:id', async (req, res) => {
-  try {
-    // Fetch a specific post by ID or handle the logic here...
-  } catch (err) {
-    res.status(500).json(err);
+const withAuth = (req, res, next) => {
+  // Check if the user is authenticated
+  if (req.session.logged_in) {
+    // If authenticated, proceed to the next middleware/route handler
+    next();
+  } else {
+    // If not authenticated, redirect or send an error response
+    res.status(401).json({ message: 'Unauthorized' });
   }
-});
+};
+// Other routes for fetching specific posts, updating, deleting, etc.
 
-// Add routes for creating, updating, and deleting posts and comments...
 
 module.exports = router;

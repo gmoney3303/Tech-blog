@@ -50,7 +50,7 @@ router.get('/profile', withAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Post }],
+      include: [{ model: Post }], // Ensure the User-Post association is correctly specified here
     });
 
     const user = userData.get({ plain: true });
@@ -72,5 +72,101 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+router.post('/create-post', withAuth, async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    // Create a new post using the Post model
+    const newPost = await Post.create({
+      title,
+      content,
+      user_id: req.session.user_id // Assuming you store the user ID in the session
+    });
+
+    // Redirect to the homepage or other desired page after post creation
+    res.redirect('/');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.delete('/post/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID and delete it
+    const deletedPost = await Post.destroy({
+      where: { id: postId },
+    });
+
+    if (deletedPost) {
+      // Post deleted successfully
+      res.status(200).json({ message: 'Post deleted successfully' });
+    } else {
+      // Post with the specified ID not found
+      res.status(404).json({ message: 'Post not found' });
+    }
+  } catch (error) {
+    // Error occurred while deleting the post
+    console.error('Error deleting post:', error);
+    res.status(500).json({ error: 'Failed to delete post' });
+  }
+});
+
+router.get('/post/:id/comments', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    
+    // Assuming your Comment model has a relationship with the User model
+    const comments = await Comment.findAll({
+      where: { post_id: postId },
+      include: [{ model: User, attributes: ['username'] }],
+      order: [['createdAt', 'DESC']], // Order comments by creation date
+    });
+
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch comments' });
+  }
+});
+
+// POST route to add a comment to a specific post
+router.post('/post/:id/comments', async (req, res) => {
+  try {
+    const { content } = req.body;
+    const postId = req.params.id;
+    const userId = req.session.user_id; // Assuming user is authenticated
+
+    const newComment = await Comment.create({
+      content,
+      user_id: userId,
+      post_id: postId,
+    });
+
+    res.status(201).json(newComment);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to add comment' });
+  }
+});
+
+router.get('/post/:id/comments', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    
+    // Assuming your Comment model has a relationship with the User model
+    const comments = await Comment.findAll({
+      where: { post_id: postId },
+      include: [{ model: User, attributes: ['username'] }],
+      order: [['createdAt', 'DESC']], // Order comments by creation date
+    });
+
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch comments' });
+  }
+});
+
+
 
 module.exports = router;

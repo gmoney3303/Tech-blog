@@ -57,6 +57,32 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+router.get('/', async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+
+    // Fetch user's details along with their associated posts
+    const userData = await User.findByPk(userId, {
+      attributes: ['id', 'name'], // Include necessary user attributes
+      include: {
+        model: Post,
+        attributes: ['id', 'title', 'content', 'createdAt'], // Include necessary post attributes
+        order: [['createdAt', 'DESC']], // Order posts by creation date (if needed)
+      },
+    });
+
+    // Extract user's posts from userData and render the profile page
+    const user = userData.get({ plain: true }); // Get plain object from Sequelize instance
+    const posts = user.posts || []; // Assuming posts are associated as "posts"
+    res.render('profile', {
+      posts,
+      logged_in: true,
+      name: user.name, // Add user's name to display in the profile
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load profile' });
+  }
+});
 
 module.exports = router;
 

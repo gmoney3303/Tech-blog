@@ -22,3 +22,93 @@ header, .project:not(:last-child) {
   font-weight: bold;
   margin-left: -5px;
 }
+
+/* Styling using the specified colors */
+
+/* Walnut Brown (#563C2E) */
+.element-class {
+  color: #563C2E;
+  /* Additional styles */
+}
+
+/* Umber (#635147) */
+.background-element {
+  background-color: #635147;
+  /* Additional styles */
+}
+
+/* Chinese Violet (#856088) */
+.border-element {
+  border: 2px solid #856088;
+  /* Additional styles */
+}
+
+/* Text using the specified colors */
+.text-walnut-brown {
+  color: #563C2E;
+  /* Additional styles */
+}
+
+.text-umber {
+  color: #635147;
+  /* Additional styles */
+}
+
+.text-chinese-violet {
+  color: #856088;
+  /* Additional styles */
+}
+.blog-posts {
+  margin: 20px;
+  padding: 10px;
+  background-color: #594F3B; 
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  color: #ADB2D3;
+}
+
+/* Post list styles */
+.post-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 15px;
+}
+
+.post-list li a {
+  color: #008CBA; /* Blue link color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+body {
+  background-color: #594F3B; 
+  color: #333333; /* Dark text color */
+  font-family: Arial, sans-serif; /* Font family */
+}
+
+/* Header styles */
+header {
+  background-color: #2E8B57; /* Sea green */
+  color: #FFFFFF; /* White text color */
+  padding: 10px;
+}
+
+/* Navigation styles */
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #FFFFFF; /* White text color */
+  text-decoration: none;
+}
