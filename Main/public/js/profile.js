@@ -70,45 +70,41 @@ if (commentForm) {
     // Ensure that the element exists before accessing its value
     const postIdElement = document.querySelector('#postsId');
     if (postIdElement) {
-      const postId = postIdElement.value;
+      const post_id = postIdElement.value;
 
-      const commentContent = document.querySelector('#commentContent').value.trim();
+      const content = document.querySelector('#commentContent').value.trim();
 
-      try {
-        const response = await fetch(`/post/${postId}/comments`, {
+      
+        await fetch(`/post/${post_id}/comments`, {
           method: 'POST',
-          body: JSON.stringify({ content: commentContent }),
+          body: JSON.stringify({ post_id, content }),
           headers: {
             'Content-Type': 'application/json',
           },
         });
 
-        if (response.ok) {
-          const newComment = await response.json();
+        
+          // const newComment = await response.json();
           // Assuming newComment contains the newly added comment data
 
           // Render the new comment under the respective post
-          const commentsSection = document.querySelector('.comments-section ul');
-          const newCommentElement = document.createElement('li');
+          // const commentsSection = document.querySelector('.comments-section ul');
+          // const newCommentElement = document.createElement('li');
 
           // Assuming your comment model has fields like content, commenter, createdAt, etc.
-          newCommentElement.innerHTML = `
-            <p>${newComment.content}</p>
-            <p>By: ${newComment.commenter}</p>
-            <p>Date: ${newComment.createdAt}</p>
-          `;
+          // newCommentElement.innerHTML = `
+          //   <p>${newComment.content}</p>
+          //   <p>By: ${newComment.commenter}</p>
+          //   <p>Date: ${newComment.createdAt}</p>
+          // `;
 
-          commentsSection.appendChild(newCommentElement); // Append the new comment to the existing comments list
+          // commentsSection.appendChild(newCommentElement); // Append the new comment to the existing comments list
 
           // Clear the comment textarea after successful submission
-          document.querySelector('#commentContent').value = '';
-        } else {
-          throw new Error('Failed to add comment');
-        }
-      } catch (error) {
-        console.error('Error adding comment:', error);
-        // Implement appropriate error handling
-      }
+          // document.querySelector('#commentContent').value = '';
+        
+      // 
+      console.log(post_id, content);
     } else {
       console.error('Post ID input element not found.');
     }

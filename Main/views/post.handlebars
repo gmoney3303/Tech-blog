@@ -36,7 +36,8 @@
     {{!-- Example comment section --}}
     <form id="commentForm">
   <textarea id="commentContent" name="comment" placeholder="Add your comment"></textarea>
-  <button type="submit">Submit</button>
+  <input type = "hidden" id = "postsId" value = "{{post.id}}"> </input>
+    <button type="submit">Submit</button>
 </form>
 
 <div class="comments-section">

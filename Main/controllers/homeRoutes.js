@@ -132,40 +132,41 @@ router.get('/post/:id/comments', async (req, res) => {
 });
 
 // POST route to add a comment to a specific post
-router.post('/post/:id/comments', async (req, res) => {
+router.post('/post/:id/comments', withAuth, async (req, res) => {
   try {
-    const { content } = req.body;
-    const postId = req.params.id;
+    // const {  postId, content } = req.body;
+    // const postId = req.params.id;
     const userId = req.session.user_id; // Assuming user is authenticated
-
+    console.log(userId,req.body);
     const newComment = await Comment.create({
-      content,
+      // content,
+      ...req.body,
       user_id: userId,
-      post_id: postId,
+      // post_id: postId,
     });
-
+    
     res.status(201).json(newComment);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to add comment' });
+    res.status(500).json(error);
   }
 });
 
-router.get('/post/:id/comments', async (req, res) => {
-  try {
-    const postId = req.params.id;
+// router.get('/post/:id/comments', async (req, res) => {
+//   try {
+//     const postId = req.params.id;
     
-    // Assuming your Comment model has a relationship with the User model
-    const comments = await Comment.findAll({
-      where: { post_id: postId },
-      include: [{ model: User, attributes: ['username'] }],
-      order: [['createdAt', 'DESC']], // Order comments by creation date
-    });
+//     // Assuming your Comment model has a relationship with the User model
+//     const comments = await Comment.findAll({
+//       where: { post_id: postId },
+//       include: [{ model: User, attributes: ['username'] }],
+//       order: [['createdAt', 'DESC']], // Order comments by creation date
+//     });
 
-    res.json(comments);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch comments' });
-  }
-});
+//     res.json(comments);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to fetch comments' });
+//   }
+// });
 
 
 
