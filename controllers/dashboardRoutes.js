@@ -11,21 +11,6 @@ const isLoggedIn = (req, res, next) => {
   }
 };
 
-// GET route for the dashboard
-router.get('/', isLoggedIn, async (req, res) => {
-  try {
-    const userId = req.session.user_id;
-
-    // Fetch all blog posts created by the authenticated user
-    const posts = await Post.findAll({ where: { user_id: userId } });
-
-    res.render('dashboard', { posts, logged_in: req.session.logged_in });
-  } catch (error) {
-    console.error('Error fetching dashboard data:', error);
-    res.status(500).json({ error: 'Failed to load dashboard', details: error.message });
-  }
-});
-
 // POST route to create a new blog post
 router.post('/create', async (req, res) => {
   try {
