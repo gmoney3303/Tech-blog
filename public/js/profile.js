@@ -82,28 +82,7 @@ if (commentForm) {
             'Content-Type': 'application/json',
           },
         });
-
         
-          // const newComment = await response.json();
-          // Assuming newComment contains the newly added comment data
-
-          // Render the new comment under the respective post
-          // const commentsSection = document.querySelector('.comments-section ul');
-          // const newCommentElement = document.createElement('li');
-
-          // Assuming your comment model has fields like content, commenter, createdAt, etc.
-          // newCommentElement.innerHTML = `
-          //   <p>${newComment.content}</p>
-          //   <p>By: ${newComment.commenter}</p>
-          //   <p>Date: ${newComment.createdAt}</p>
-          // `;
-
-          // commentsSection.appendChild(newCommentElement); // Append the new comment to the existing comments list
-
-          // Clear the comment textarea after successful submission
-          // document.querySelector('#commentContent').value = '';
-        
-      // 
       console.log(post_id, content);
     } else {
       console.error('Post ID input element not found.');

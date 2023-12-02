@@ -151,23 +151,5 @@ router.post('/post/:id/comments', withAuth, async (req, res) => {
   }
 });
 
-// router.get('/post/:id/comments', async (req, res) => {
-//   try {
-//     const postId = req.params.id;
-    
-//     // Assuming your Comment model has a relationship with the User model
-//     const comments = await Comment.findAll({
-//       where: { post_id: postId },
-//       include: [{ model: User, attributes: ['username'] }],
-//       order: [['createdAt', 'DESC']], // Order comments by creation date
-//     });
-
-//     res.json(comments);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Failed to fetch comments' });
-//   }
-// });
-
-
 
 module.exports = router;

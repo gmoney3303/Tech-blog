@@ -48,13 +48,14 @@ const signupFormHandler = async (event) => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  document
-    .querySelector('.login-form')
-    .addEventListener('submit', loginFormHandler);
+  const loginForm = document.querySelector('#loginForm');
+  const signupForm = document.querySelector('#signupForm');
 
-  document
-    .querySelector('.signup-form')
-    .addEventListener('submit', signupFormHandler);
+  if (loginForm) {
+    loginForm.addEventListener('submit', loginFormHandler);
+  }
+
+  if (signupForm) {
+    signupForm.addEventListener('submit', signupFormHandler);
+  }
 });
-
-

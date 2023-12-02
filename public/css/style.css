@@ -112,3 +112,32 @@ nav ul li a {
   color: #FFFFFF; /* White text color */
   text-decoration: none;
 }
+
+
+
+.container {
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.signup {
+  flex: 1; /* Fill remaining space */
+  padding: 20px;
+  background-color: #594F3B;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content:right ;
+}
+
+.input {
+  background-color: #594F3B;
+  color: #008CBA;
+}
+
+
+
+.login {
+  margin-right: 10px; /* Adjust the space between login and signup */
+}
