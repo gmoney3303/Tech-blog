@@ -1,14 +1,33 @@
-const User = require('./User'); // Import your User model
-const Post = require('./Post'); // Import your Post model
+const User = require('./User');
+const Post = require('./Post');
+const Comment = require('./Comment');
 
 // Define associations between models here
-User.hasMany(Post, {
+User.hasMany(Comment, {
   foreignKey: 'user_id',
-  onDelete: 'CASCADE' // Example of an association where a user has many posts
+  onDelete: 'CASCADE',
 });
 
-Post.belongsTo(User, {
-  foreignKey: 'user_id'
+Post.hasMany(Comment, {
+  foreignKey: 'post_id',
+  onDelete: 'CASCADE',
 });
 
-module.exports = { User, Post }; // Export your models
+Comment.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id',
+});
+
+// Explicitly invoke associate method if available
+const models = { User, Post, Comment }; // Create a models object
+
+Object.values(models).forEach((model) => {
+  if (model.associate) {
+    model.associate(models);
+  }
+});
+
+module.exports = models;

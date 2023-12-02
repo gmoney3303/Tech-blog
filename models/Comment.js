@@ -1,7 +1,16 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Comment extends Model {}
+class Comment extends Model {
+  static associate(models) {
+    Comment.belongsTo(models.User, {
+      foreignKey: 'user_id',
+    });
+    Comment.belongsTo(models.Post, {
+      foreignKey: 'post_id',
+    });
+  }
+}
 
 Comment.init(
   {
@@ -18,7 +27,7 @@ Comment.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'user', // This should match your User model name
+        model: 'users', // Corrected table name reference to 'users'
         key: 'id',
       },
     },
@@ -26,7 +35,7 @@ Comment.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'post', // This should match your Post model name
+        model: 'posts', // Corrected table name reference to 'posts'
         key: 'id',
       },
     },
