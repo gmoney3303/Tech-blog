@@ -32,11 +32,15 @@ router.get('/post/:id', async (req, res) => {
           model: User,
           attributes: ['name'],
         },
+        {
+          model: Comment,
+          include: [User]
+        }
       ],
     });
 
     const post = postData.get({ plain: true });
-
+console.log(post.comments);
     res.render('post', {
       post,
       logged_in: req.session.logged_in,
@@ -144,7 +148,7 @@ router.post('/post/:id/comments', withAuth, async (req, res) => {
       user_id: userId,
       // post_id: postId,
     });
-    
+
     res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json(error);

@@ -15,7 +15,7 @@
         <nav>
             <ul>
                 <a href="/">Home</a>
-                <a href="/dashboard">Dashboard</a>
+                <a href="/profile">Dashboard</a>
                 <a href="/login">Login</a>
                 <!-- Add other navigation links based on requirements -->
             </ul>
@@ -45,8 +45,8 @@
   <ul>
     {{#each post.comments}}
   <li>
-    <p>{{commentText}}</p>
-    <p>By: {{commenter}}</p>
+    <p>{{content}}</p>
+    <p>By: {{user.name}}</p>
     <p>Date: {{createdAt}}</p>
   </li>
 {{/each}}

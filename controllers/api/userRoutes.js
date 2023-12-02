@@ -10,7 +10,8 @@ router.post('/signup', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = await User.create({
-      uemail: req.body.email,
+      email: req.body.email,
+      name: req.body.name,
       password: hashedPassword,
     });
     req.session.save(() => {
